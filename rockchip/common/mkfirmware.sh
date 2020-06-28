@@ -23,6 +23,8 @@ LOADER=$TOP_DIR/u-boot/*_loader_v*.bin
 MKIMAGE=$SCRIPT_DIR/mk-image.sh
 mkdir -p $ROCKDEV
 
+touch $ROCKDEV/board.img
+
 # Require buildroot host tools to do image packing.
 if [ ! -d "$TARGET_OUTPUT_DIR" ]; then
     echo "Source buildroot/build/envsetup.sh"
