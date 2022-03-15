@@ -3,11 +3,11 @@
 # Target arch
 export RK_ARCH=arm64
 # Uboot defconfig
-export RK_UBOOT_DEFCONFIG=rk3399
+export RK_UBOOT_DEFCONFIG=rk3399_itb201a1_2G
 # Kernel defconfig
 export RK_KERNEL_DEFCONFIG=rk3399_adv_defconfig
 # Kernel dts
-export RK_KERNEL_DTS=rk3399-rsb4710-a2
+export RK_KERNEL_DTS=rk3399-itb201-a1
 # boot image type
 export RK_BOOT_IMG=boot.img
 # kernel image path
