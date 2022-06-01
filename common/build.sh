@@ -230,6 +230,7 @@ function usage()
 	echo "multi-npu_boot     -build boot image for multi-npu board"
 	echo "yocto              -build yocto rootfs"
 	echo "debian             -build debian rootfs"
+	echo "ubuntu             -build ubuntu rootfs"
 	echo "distro             -build distro rootfs"
 	echo "pcba               -build pcba"
 	echo "recovery           -build recovery"
@@ -582,8 +583,6 @@ function build_kernel(){
 		ln -sf  $TOP_DIR/kernel/$RK_BOOT_IMG $TOP_DIR/rockdev/boot.img
 	fi
 
-	build_check_power_domain
-
 	finish_build
 }
 
@@ -711,6 +710,27 @@ function build_debian(){
 	finish_build
 }
 
+function build_ubuntu(){
+	ARCH=${RK_DEBIAN_ARCH:-${RK_ARCH}}
+	case $ARCH in
+		arm|armhf) ARCH=armhf ;;
+		*) ARCH=arm64 ;;
+	esac
+
+	echo "=========Start building debian for $ARCH========="
+	cd ubuntu
+
+	
+	if [ ! -e ubuntu-$RK_UBUNTU_VERSION-base-$ARCH.tar.gz ]; then
+		RELEASE=$RK_UBUNTU_VERSION ARCH=$ARCH ./mk-base-ubuntu.sh
+	fi
+
+	VERSION=debug ARCH=$ARCH ./mk-rootfs-$RK_UBUNTU_VERSION.sh
+	./mk-image.sh
+
+	finish_build
+}
+
 function build_distro(){
 	check_config RK_DISTRO_DEFCONFIG || return 0
 
@@ -744,6 +764,11 @@ function build_rootfs(){
 		debian)
 			build_debian
 			ln -rsf debian/linaro-rootfs.img \
+				$RK_ROOTFS_DIR/rootfs.ext4
+			;;
+		ubuntu)
+			build_ubuntu
+			ln -rsf ubuntu/ubuntu-rootfs.img \
 				$RK_ROOTFS_DIR/rootfs.ext4
 			;;
 		distro)
@@ -1159,7 +1184,7 @@ for option in ${OPTIONS}; do
 		loader) build_loader ;;
 		kernel) build_kernel ;;
 		modules) build_modules ;;
-		rootfs|buildroot|debian|distro|yocto) build_rootfs $option ;;
+		rootfs|buildroot|debian|distro|ubuntu|yocto) build_rootfs $option ;;
 		pcba) build_pcba ;;
 		ramboot) build_ramboot ;;
 		recovery) build_recovery ;;
