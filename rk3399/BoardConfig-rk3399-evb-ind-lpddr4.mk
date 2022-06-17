@@ -31,7 +31,7 @@ export RK_ROOTFS_TYPE=ext4
 # Set debian version (debian10: buster, debian11: bullseye)
 export RK_DEBIAN_VERSION=bullseye
 # Set ubuntu version
-export RK_UBUNTU_VERSION=jammy
+export RK_UBUNTU_VERSION=focal
 # yocto machine
 export RK_YOCTO_MACHINE=rockchip-rk3399-sapphire-excavator
 # rootfs image path
