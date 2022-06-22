@@ -1,1 +1,1 @@
-BoardConfig-rk3399-evb-ind-lpddr4.mk
+BoardConfig-rk3399-itb201a1.mk

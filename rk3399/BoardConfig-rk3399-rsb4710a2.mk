@@ -3,11 +3,11 @@
 # Target arch
 export RK_ARCH=arm64
 # Uboot defconfig
-export RK_UBOOT_DEFCONFIG=rk3399
+export RK_UBOOT_DEFCONFIG=rk3399_itb201a1_2G
 # Kernel defconfig
-export RK_KERNEL_DEFCONFIG=rockchip_linux_defconfig
+export RK_KERNEL_DEFCONFIG=rk3399_adv_defconfig
 # Kernel dts
-export RK_KERNEL_DTS=rk3399-evb-ind-lpddr4-linux
+export RK_KERNEL_DTS=rk3399-rsb4710-a2
 # boot image type
 export RK_BOOT_IMG=boot.img
 # kernel image path
@@ -29,7 +29,9 @@ export RK_TARGET_PRODUCT=rk3399
 # Set rootfs type, including ext2 ext4 squashfs
 export RK_ROOTFS_TYPE=ext4
 # Set debian version (debian10: buster, debian11: bullseye)
-export RK_DEBIAN_VERSION=buster
+export RK_DEBIAN_VERSION=bullseye
+# Set ubuntu version
+export RK_UBUNTU_VERSION=focal
 # yocto machine
 export RK_YOCTO_MACHINE=rockchip-rk3399-sapphire-excavator
 # rootfs image path
