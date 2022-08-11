@@ -3,7 +3,7 @@
 # Target arch
 export RK_ARCH=arm64
 # Uboot defconfig
-export RK_UBOOT_DEFCONFIG=rk3399_itb201a1_2G
+export RK_UBOOT_DEFCONFIG=rk3399_rsb4710a2_2G
 # Kernel defconfig
 export RK_KERNEL_DEFCONFIG=rk3399_adv_defconfig
 # Kernel dts
