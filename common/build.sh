@@ -717,11 +717,11 @@ function build_ubuntu(){
 		*) ARCH=arm64 ;;
 	esac
 
-	echo "=========Start building debian for $ARCH========="
+	echo "=========Start building ubuntu for $ARCH========="
 	cd ubuntu
 
 	
-	if [ ! -e ubuntu-$RK_UBUNTU_VERSION-base-$ARCH.tar.gz ]; then
+	if [ ! -e ubuntu20.04-whole.tar.gz ]; then
 		RELEASE=$RK_UBUNTU_VERSION ARCH=$ARCH ./mk-base-ubuntu.sh
 	fi
 
