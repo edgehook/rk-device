@@ -28,7 +28,7 @@ function fixup_part()
 	if echo $1 | grep -qE "^/"; then
 		DEV=$1
 	else
-		DEV="PARTLABEL=$1"
+		DEV="/dev/block/by-name/$1"
 	fi
 
 	MOUNT=${2:-/$1}
@@ -37,10 +37,14 @@ function fixup_part()
 
 	sed -i "#[[:space:]]${MOUNT}[[:space:]]#d" ${TARGET_DIR}/etc/fstab
 
-	echo -e "${DEV}\t${MOUNT}\t${FS_TYPE}\t${OPT}\t0 2" >> \
+	echo -e "${DEV}\t${MOUNT}\t\t\t${FS_TYPE}\t\t${OPT}\t\t0\t2" >> \
 		${TARGET_DIR}/etc/fstab
 
-	mkdir -p ${TARGET_DIR}/${MOUNT} 
+	if [ "$1" = "misc" ]; then
+		echo "misc"
+	else
+		mkdir -p ${TARGET_DIR}/${MOUNT} 
+	fi
 }
 
 function fixup_fstab()
@@ -49,12 +53,19 @@ function fixup_fstab()
 
 	case "${RK_ROOTFS_TYPE}" in
 		ext[234])
-			fixup_root ${RK_ROOTFS_TYPE}
+			#fixup_root ${RK_ROOTFS_TYPE}
 			;;
 		*)
 			fixup_root auto
 			;;
 	esac
+
+	DEV="/dev/block/by-name/misc"
+	MOUNT="/misc"
+    FS_TYPE="emmc"
+	OPT="defaults"
+	echo -e "${DEV}\t\t${MOUNT}\t\t\t${FS_TYPE}\t\t${OPT}\t\t0\t0" >> \
+		${TARGET_DIR}/etc/fstab
 
 	for part in ${RK_EXTRA_PARTITIONS}; do
 		fixup_part $(echo "${part}" | xargs -d':')
