@@ -3,7 +3,7 @@
 # Target arch
 export RK_ARCH=arm64
 # Uboot defconfig
-export RK_UBOOT_DEFCONFIG=rk3399_itb201a1_2G
+export RK_UBOOT_DEFCONFIG=rk3399_rsb4710a2_2G
 # Kernel defconfig
 export RK_KERNEL_DEFCONFIG=rk3399_adv_defconfig
 # Kernel dts
@@ -49,6 +49,7 @@ export RK_OEM_DIR=oem_normal
 #userdata config
 export RK_USERDATA_DIR=userdata_normal
 #misc image
+export RK_MISC_FS_TYPE=emmc
 export RK_MISC=wipe_all-misc.img
 #choose enable distro module
 export RK_DISTRO_MODULE=

@@ -717,11 +717,11 @@ function build_ubuntu(){
 		*) ARCH=arm64 ;;
 	esac
 
-	echo "=========Start building debian for $ARCH========="
+	echo "=========Start building ubuntu for $ARCH========="
 	cd ubuntu
 
 	
-	if [ ! -e ubuntu-$RK_UBUNTU_VERSION-base-$ARCH.tar.gz ]; then
+	if [ ! -e ubuntu20.04-whole.tar.gz ]; then
 		RELEASE=$RK_UBUNTU_VERSION ARCH=$ARCH ./mk-base-ubuntu.sh
 	fi
 
@@ -806,6 +806,20 @@ function build_recovery(){
 	echo "==========Start building recovery=========="
 	echo "TARGET_RECOVERY_CONFIG=$RK_CFG_RECOVERY"
 	echo "========================================"
+
+	# debug flag begin
+	DEBUG_FLAG=$TOP_DIR/buildroot/output/$RK_CFG_RECOVERY/target/
+	if [ ! -d $DEBUG_FLAG ];then
+		mkdir -p $DEBUG_FLAG
+	fi
+
+	if [ ! -f $DEBUG_FLAG/.rkdebug ];then
+		echo "creat $DEBUG_FLAG !"
+		touch $DEBUG_FLAG/.rkdebug
+	else
+		echo "$DEBUG_FLAG/.rkdebug Already exist!"
+	fi
+	# debug flag end
 
 	/usr/bin/time -f "you take %E to build recovery" \
 		$COMMON_DIR/mk-ramdisk.sh recovery.img $RK_CFG_RECOVERY
